@@ -30,7 +30,8 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    myBox()
+                    //myBox()
+                    myColumn()
                 }
             }
         }
@@ -39,19 +40,91 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun myBox() {
-    Box(modifier = Modifier
-        .fillMaxSize()
-        .fillMaxWidth()
-        , contentAlignment = Alignment.Center
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .fillMaxWidth(), contentAlignment = Alignment.Center
     ) {
-        Box(modifier = Modifier
-            .width(100.dp)
-            .height(100.dp)
-            .background(color = Color.Magenta)
-            .verticalScroll(rememberScrollState())
-        , contentAlignment = Alignment.Center) {
+        Box(
+            modifier = Modifier
+                .width(100.dp)
+                .height(100.dp)
+                .background(color = Color.Magenta)
+                .verticalScroll(rememberScrollState()), contentAlignment = Alignment.Center
+        ) {
             Text(text = "I am a box")
         }
+    }
+}
+
+@Composable
+fun myColumn() {
+    Column(modifier = Modifier
+        .fillMaxSize()
+        .verticalScroll(rememberScrollState())) {
+        Text(
+            text = "I am the column 1",
+            Modifier
+                .background(Color.Red)
+                .fillMaxWidth()
+                .height(100.dp)
+        )
+        Text(
+            text = "I am the column 2",
+            Modifier
+                .background(Color.Blue)
+                .fillMaxWidth()
+                .height(100.dp)
+        )
+        Text(
+            text = "I am the column 3",
+            Modifier
+                .background(Color.Green)
+                .fillMaxWidth()
+                .height(100.dp)
+        )
+        Text(
+            text = "I am the column 4",
+            Modifier
+                .background(Color.Gray)
+                .fillMaxWidth()
+                .height(100.dp)
+        )
+        Text(
+            text = "I am the column 4",
+            Modifier
+                .background(Color.Gray)
+                .fillMaxWidth()
+                .height(100.dp)
+        )
+        Text(
+            text = "I am the column 1",
+            Modifier
+                .background(Color.Red)
+                .fillMaxWidth()
+                .height(100.dp)
+        )
+        Text(
+            text = "I am the column 2",
+            Modifier
+                .background(Color.Blue)
+                .fillMaxWidth()
+                .height(100.dp)
+        )
+        Text(
+            text = "I am the column 3",
+            Modifier
+                .background(Color.Green)
+                .fillMaxWidth()
+                .height(100.dp)
+        )
+        Text(
+            text = "I am the column 4",
+            Modifier
+                .background(Color.Gray)
+                .fillMaxWidth()
+                .height(100.dp)
+        )
     }
 }
 
@@ -59,6 +132,7 @@ fun myBox() {
 @Composable
 fun DefaultMyBox() {
     GummyTheme {
-        myBox()
+        //myBox()
+        myColumn()
     }
 }
