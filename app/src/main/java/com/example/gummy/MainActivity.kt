@@ -12,6 +12,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Devices
@@ -29,7 +30,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    Greeting("Zahúl Domínguez")
+                    myBox()
                 }
             }
         }
@@ -40,18 +41,16 @@ class MainActivity : ComponentActivity() {
 fun myBox() {
     Box(modifier = Modifier
         .fillMaxSize()
-        .fillMaxWidth()) {
+        .fillMaxWidth()
+        , contentAlignment = Alignment.Center
+    ) {
         Box(modifier = Modifier
-            //.width(100.dp)
+            .width(100.dp)
             .height(100.dp)
             .background(color = Color.Magenta)
-            .verticalScroll(rememberScrollState())) {
-            Text(text = "Hello I am a box")
-            Text(text = "Hello I am a box")
-            Text(text = "Hello I am a box")
-            Text(text = "Hello I am a box")
-            Text(text = "Hello I am a box")
-
+            .verticalScroll(rememberScrollState())
+        , contentAlignment = Alignment.Center) {
+            Text(text = "I am a box")
         }
     }
 }
