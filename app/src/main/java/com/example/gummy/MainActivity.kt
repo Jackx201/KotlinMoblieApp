@@ -29,7 +29,8 @@ class MainActivity : ComponentActivity() {
                 ) {
                     //myBox()
                     //myColumn()
-                    myRow()
+                    //myRow()
+                    myComplexLayout()
                 }
             }
         }
@@ -57,9 +58,11 @@ fun myBox() {
 
 @Composable
 fun myColumn() {
-    Column(modifier = Modifier
-        .fillMaxSize()
-        .verticalScroll(rememberScrollState())) {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .verticalScroll(rememberScrollState())
+    ) {
         Text(
             text = "I am the column 1",
             Modifier
@@ -127,7 +130,7 @@ fun myColumn() {
 }
 
 @Composable
-fun myRow(){
+fun myRow() {
 
     Row(Modifier.horizontalScroll(rememberScrollState())) {
         Text(
@@ -179,8 +182,44 @@ fun myRow(){
                 .height(50.dp)
         )
     }
+}
 
-
+@Composable
+fun myComplexLayout() {
+    Column() {
+        Box(
+            Modifier
+                .background(Color.Green)
+                .fillMaxWidth()
+                .weight(1f)
+        ) {
+            Text(text = "I am a box")
+        }
+        Row(
+            Modifier
+                .fillMaxWidth()
+                .weight(1f),
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            Box(modifier = Modifier
+                .fillMaxWidth()
+                .background(Color.Cyan)
+                .weight(1f)
+                .fillMaxHeight()) {
+                Text(text = "I am a CYAN box")
+            }
+            Box(modifier = Modifier
+                .fillMaxWidth()
+                .background(Color.Blue)
+                .weight(1f)
+                .fillMaxHeight()) {
+                Text(text = "I am a BLUE box")
+            }
+        }
+        Box(Modifier.background(Color.Yellow).weight(1f).fillMaxHeight().fillMaxWidth()) {
+            Text(text = "I am a yellow box")
+        }
+    }
 }
 
 @Preview(showBackground = true, showSystemUi = true)
@@ -189,6 +228,7 @@ fun DefaultMyBox() {
     GummyTheme {
         //myBox()
         //myColumn()
-        myRow()
+        //myRow()
+        myComplexLayout()
     }
 }
