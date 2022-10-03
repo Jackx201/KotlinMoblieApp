@@ -3,11 +3,8 @@ package com.example.gummy
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
@@ -31,7 +28,8 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colors.background
                 ) {
                     //myBox()
-                    myColumn()
+                    //myColumn()
+                    myRow()
                 }
             }
         }
@@ -128,11 +126,69 @@ fun myColumn() {
     }
 }
 
+@Composable
+fun myRow(){
+
+    Row(Modifier.horizontalScroll(rememberScrollState())) {
+        Text(
+            text = "I am the column 1",
+            Modifier
+                .background(Color.Red)
+                .height(50.dp)
+        )
+        Text(
+            text = "I am the column 2",
+            Modifier
+                .background(Color.Blue)
+                .height(50.dp)
+        )
+        Text(
+            text = "I am the column 3",
+            Modifier
+                .background(Color.Green)
+                .height(50.dp)
+        )
+        Text(
+            text = "I am the column 4",
+            Modifier
+                .background(Color.Gray)
+                .height(50.dp)
+        )
+        Text(
+            text = "I am the column 1",
+            Modifier
+                .background(Color.Red)
+                .height(50.dp)
+        )
+        Text(
+            text = "I am the column 2",
+            Modifier
+                .background(Color.Blue)
+                .height(50.dp)
+        )
+        Text(
+            text = "I am the column 3",
+            Modifier
+                .background(Color.Green)
+                .height(50.dp)
+        )
+        Text(
+            text = "I am the column 4",
+            Modifier
+                .background(Color.Gray)
+                .height(50.dp)
+        )
+    }
+
+
+}
+
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun DefaultMyBox() {
     GummyTheme {
         //myBox()
-        myColumn()
+        //myColumn()
+        myRow()
     }
 }
