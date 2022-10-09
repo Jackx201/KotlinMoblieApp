@@ -1,14 +1,12 @@
 package com.example.gummy
 
 import android.os.Bundle
+import android.widget.Space
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.Button
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -42,8 +40,9 @@ class MainActivity : ComponentActivity() {
                     //myColumn()
                     //myRow()
                     //myComplexLayout()
-                    //myStatesExamples()
-                    myText()
+                    myStatesExamples()
+                    //myText()
+                    //myTextField()
                 }
             }
         }
@@ -288,6 +287,33 @@ fun myText() {
 
 }
 
+@Composable
+fun myTextField() {
+    var myCustomText by remember {
+        mutableStateOf("")
+    }
+
+    Column(Modifier.fillMaxSize()) {
+        TextField(value = myCustomText, onValueChange = {
+            myCustomText = if (it.contains("[0-9]".toRegex())) {
+                it.replace("[0-9]".toRegex(), "")
+            } else {
+                it
+            }
+        })
+        Spacer(Modifier.height(30.dp))
+        OutlinedTextField(value = myCustomText,
+            onValueChange = { myCustomText = it },
+            label = { Text(text = "Text")},
+            colors = TextFieldDefaults.outlinedTextFieldColors(
+                focusedBorderColor = Color.Red,
+                unfocusedBorderColor = Color.Magenta
+            )
+        )
+    } //Ends Column
+}
+
+
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun DefaultMyBox() {
@@ -296,7 +322,8 @@ fun DefaultMyBox() {
         //myColumn()
         //myRow()
         //myComplexLayout()
-        //myStatesExamples()
-        myText()
+        myStatesExamples()
+        //myText()
+        //myTextField()
     }
 }
