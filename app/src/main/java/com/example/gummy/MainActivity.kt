@@ -37,8 +37,8 @@ class MainActivity : ComponentActivity() {
                     //myColumn()
                     //myRow()
                     //myComplexLayout()
-                    //myStatesExamples()
-                    myText()
+                    myStatesExamples()
+                    //myText()
                 }
             }
         }
@@ -259,7 +259,7 @@ fun DefaultMyBox() {
         //myColumn()
         //myRow()
         //myComplexLayout()
-        //myStatesExamples()
-        myText()
+        myStatesExamples()
+        //myText()
     }
 }
