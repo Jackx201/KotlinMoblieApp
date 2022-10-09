@@ -5,13 +5,19 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.Button
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -30,7 +36,9 @@ class MainActivity : ComponentActivity() {
                     //myBox()
                     //myColumn()
                     //myRow()
-                    myComplexLayout()
+                    //myComplexLayout()
+                    //myStatesExamples()
+                    myText()
                 }
             }
         }
@@ -216,10 +224,31 @@ fun myComplexLayout() {
                 Text(text = "I am a BLUE box")
             }
         }
-        Box(Modifier.background(Color.Yellow).weight(1f).fillMaxHeight().fillMaxWidth()) {
+        Box(
+            Modifier
+                .background(Color.Yellow)
+                .weight(1f)
+                .fillMaxHeight()
+                .fillMaxWidth()) {
             Text(text = "I am a yellow box")
         }
     }
+}
+
+@Composable
+fun myStatesExamples() {
+    var counter by rememberSaveable{ mutableStateOf(0) }
+    Column(modifier = Modifier.fillMaxSize()) {
+        Button(onClick = { counter += 1 }) {
+            Text(text = "Press Here")
+        } //Ends Button
+        Text(text = "I have been pressed ${counter} times")
+    }//Ends Column
+}
+
+@Composable
+fun myText(){
+    //ToDo
 }
 
 @Preview(showBackground = true, showSystemUi = true)
@@ -229,6 +258,8 @@ fun DefaultMyBox() {
         //myBox()
         //myColumn()
         //myRow()
-        myComplexLayout()
+        //myComplexLayout()
+        //myStatesExamples()
+        myText()
     }
 }
