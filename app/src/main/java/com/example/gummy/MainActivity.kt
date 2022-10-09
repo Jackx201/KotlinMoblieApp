@@ -18,9 +18,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.gummy.ui.theme.GummyTheme
 
 class MainActivity : ComponentActivity() {
@@ -37,8 +42,8 @@ class MainActivity : ComponentActivity() {
                     //myColumn()
                     //myRow()
                     //myComplexLayout()
-                    myStatesExamples()
-                    //myText()
+                    //myStatesExamples()
+                    myText()
                 }
             }
         }
@@ -209,18 +214,22 @@ fun myComplexLayout() {
                 .weight(1f),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            Box(modifier = Modifier
-                .fillMaxWidth()
-                .background(Color.Cyan)
-                .weight(1f)
-                .fillMaxHeight()) {
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .background(Color.Cyan)
+                    .weight(1f)
+                    .fillMaxHeight()
+            ) {
                 Text(text = "I am a CYAN box")
             }
-            Box(modifier = Modifier
-                .fillMaxWidth()
-                .background(Color.Blue)
-                .weight(1f)
-                .fillMaxHeight()) {
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .background(Color.Blue)
+                    .weight(1f)
+                    .fillMaxHeight()
+            ) {
                 Text(text = "I am a BLUE box")
             }
         }
@@ -229,7 +238,8 @@ fun myComplexLayout() {
                 .background(Color.Yellow)
                 .weight(1f)
                 .fillMaxHeight()
-                .fillMaxWidth()) {
+                .fillMaxWidth()
+        ) {
             Text(text = "I am a yellow box")
         }
     }
@@ -237,7 +247,7 @@ fun myComplexLayout() {
 
 @Composable
 fun myStatesExamples() {
-    var counter by rememberSaveable{ mutableStateOf(0) }
+    var counter by rememberSaveable { mutableStateOf(0) }
     Column(modifier = Modifier.fillMaxSize()) {
         Button(onClick = { counter += 1 }) {
             Text(text = "Press Here")
@@ -247,8 +257,35 @@ fun myStatesExamples() {
 }
 
 @Composable
-fun myText(){
-    //ToDo
+fun myText() {
+    Column(modifier = Modifier.fillMaxSize()) {
+        Text(text = "I am a Text!!")
+        Text(text = "I am a Text!!", color = Color.Blue)
+        Text(text = "I am a Text!!", color = Color.Blue, fontWeight = FontWeight.ExtraBold)
+        Text(text = "I am a Text!!", color = Color.Blue, fontWeight = FontWeight.Light)
+        Text(
+            text = "I am a Text!!",
+            color = Color.Blue,
+            fontWeight = FontWeight.Light,
+            style = TextStyle(fontFamily = FontFamily.SansSerif)
+        )
+        Text(text = "I am a text", style = TextStyle(textDecoration = TextDecoration.Underline))
+        Text(text = "I am a text", style = TextStyle(textDecoration = TextDecoration.LineThrough))
+        //Begins Combined Text
+        Text(
+            text = "I am a combined text", style = TextStyle(
+                textDecoration = TextDecoration.combine(
+                    listOf(
+                        TextDecoration.Underline,
+                        TextDecoration.LineThrough
+                    )
+                )
+            )
+        ) //Ends Combined Text
+        Text(text = "I am a Text!!", fontSize = 40.sp)
+
+    }
+
 }
 
 @Preview(showBackground = true, showSystemUi = true)
@@ -259,7 +296,7 @@ fun DefaultMyBox() {
         //myColumn()
         //myRow()
         //myComplexLayout()
-        myStatesExamples()
-        //myText()
+        //myStatesExamples()
+        myText()
     }
 }
