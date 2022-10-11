@@ -22,6 +22,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
@@ -54,16 +55,57 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun myImages(){
-    Column(Modifier.fillMaxSize().padding(24.dp),
-    verticalArrangement = Arrangement.Top,
-    horizontalAlignment = Alignment.End) {
+fun myImages() {
+
+    var userNameFieldText by remember {
+        mutableStateOf("Username")
+    }
+
+    var passwordNameFieldText by remember {
+        mutableStateOf("Password")
+    }
+
+    Column(
+        Modifier
+            .fillMaxSize()
+            .padding(24.dp),
+        verticalArrangement = Arrangement.Top,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Text(text = "Login", fontSize = 50.sp, fontWeight = FontWeight.ExtraBold)
+        Spacer(modifier = Modifier.height(30.dp))
         Image(
             painterResource(id = R.drawable.test),
             contentDescription = "Rise of the Teenage Mutant Ninja Turtles",
             alpha = 0.8f,
-            modifier = Modifier.clip(CircleShape).border(5.dp, Color.Blue, CircleShape).size(150.dp)
+            modifier = Modifier
+                .clip(CircleShape)
+                .border(5.dp, Color.Blue, CircleShape)
         )
+        Spacer(modifier = Modifier.height(30.dp))
+        Text(
+            text = "Welcome to the teenage mutant ninja turtles official website, only radical people with accounts are allowed.",
+            textAlign = TextAlign.Center,
+            color = Color.DarkGray
+        )
+        Spacer(modifier = Modifier.height(30.dp))
+        TextField(value = userNameFieldText, onValueChange = { userNameFieldText = it })
+        Spacer(modifier = Modifier.height(30.dp))
+        TextField(value = passwordNameFieldText, onValueChange = { passwordNameFieldText = it })
+        Spacer(modifier = Modifier.height(30.dp))
+
+        Row() {
+            Button(onClick = { /*TODO*/ }) {
+                Text(text = "Login")
+            }
+
+            Spacer(modifier = Modifier.width(100.dp))
+
+            Button(onClick = { /*TODO*/ }) {
+                Text(text = "Sign Up")
+            }
+        }
+
     }
 }
 
@@ -320,9 +362,10 @@ fun myTextField() {
             }
         })
         Spacer(Modifier.height(30.dp))
-        OutlinedTextField(value = myCustomText,
+        OutlinedTextField(
+            value = myCustomText,
             onValueChange = { myCustomText = it },
-            label = { Text(text = "Text")},
+            label = { Text(text = "Text") },
             colors = TextFieldDefaults.outlinedTextFieldColors(
                 focusedBorderColor = Color.Red,
                 unfocusedBorderColor = Color.Magenta
