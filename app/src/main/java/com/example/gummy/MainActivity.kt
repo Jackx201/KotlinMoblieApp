@@ -6,6 +6,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -16,6 +17,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
@@ -40,12 +43,27 @@ class MainActivity : ComponentActivity() {
                     //myColumn()
                     //myRow()
                     //myComplexLayout()
-                    myStatesExamples()
+                    //myStatesExamples()
                     //myText()
                     //myTextField()
+                    myImages()
                 }
             }
         }
+    }
+}
+
+@Composable
+fun myImages(){
+    Column(Modifier.fillMaxSize().padding(24.dp),
+    verticalArrangement = Arrangement.Top,
+    horizontalAlignment = Alignment.End) {
+        Image(
+            painterResource(id = R.drawable.test),
+            contentDescription = "Rise of the Teenage Mutant Ninja Turtles",
+            alpha = 0.8f,
+            modifier = Modifier.clip(CircleShape).border(5.dp, Color.Blue, CircleShape).size(150.dp)
+        )
     }
 }
 
@@ -322,8 +340,9 @@ fun DefaultMyBox() {
         //myColumn()
         //myRow()
         //myComplexLayout()
-        myStatesExamples()
+        //myStatesExamples()
         //myText()
         //myTextField()
+        myImages()
     }
 }
