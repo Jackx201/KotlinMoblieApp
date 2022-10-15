@@ -40,14 +40,17 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    //myBox()
-                    //myColumn()
-                    //myRow()
-                    //myComplexLayout()
-                    //myStatesExamples()
-                    //myText()
-                    //myTextField()
-                    myImages()
+                    Column() {
+                        val options = getOptions(listOf(
+                            "Install Android Studio",
+                            "Learn Kotlin",
+                            "Create a project",
+                            "Create a To-Do List"))
+                        options.forEach{
+                            myCheckBoxChecked(it)
+                        }
+                    }
+                    //myToDoList()
                 }
             }
         }
@@ -55,323 +58,40 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun myImages() {
-
-    var userNameFieldText by remember {
-        mutableStateOf("Username")
-    }
-
-    var passwordNameFieldText by remember {
-        mutableStateOf("Password")
-    }
-
-    Column(
-        Modifier
-            .fillMaxSize()
-            .padding(24.dp),
-        verticalArrangement = Arrangement.Top,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Text(text = "Login", fontSize = 50.sp, fontWeight = FontWeight.ExtraBold)
-        Spacer(modifier = Modifier.height(30.dp))
-        Image(
-            painterResource(id = R.drawable.test),
-            contentDescription = "Rise of the Teenage Mutant Ninja Turtles",
-            alpha = 0.8f,
-            modifier = Modifier
-                .clip(CircleShape)
-                .border(5.dp, Color.Blue, CircleShape)
-        )
-        Spacer(modifier = Modifier.height(30.dp))
-        Text(
-            text = "Welcome to the teenage mutant ninja turtles official website, only radical people with accounts are allowed.",
-            textAlign = TextAlign.Center,
-            color = Color.DarkGray
-        )
-        Spacer(modifier = Modifier.height(30.dp))
-        TextField(value = userNameFieldText, onValueChange = { userNameFieldText = it })
-        Spacer(modifier = Modifier.height(30.dp))
-        TextField(value = passwordNameFieldText, onValueChange = { passwordNameFieldText = it })
-        Spacer(modifier = Modifier.height(30.dp))
-
-        Row() {
-            Button(onClick = { /*TODO*/ }) {
-                Text(text = "Login")
-            }
-
-            Spacer(modifier = Modifier.width(100.dp))
-
-            Button(onClick = { /*TODO*/ }) {
-                Text(text = "Sign Up")
-            }
+fun getOptions(title: List<String>): List<CheckInfo> {
+    return title.map {
+        var status by rememberSaveable {
+            mutableStateOf(false)
         }
-
+        CheckInfo(
+            title = it,
+            selected = status,
+            onCheckedChange = { myNewStatus -> status = myNewStatus }
+        )
     }
 }
 
 @Composable
-fun myBox() {
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .fillMaxWidth(), contentAlignment = Alignment.Center
-    ) {
-        Box(
-            modifier = Modifier
-                .width(100.dp)
-                .height(100.dp)
-                .background(color = Color.Magenta)
-                .verticalScroll(rememberScrollState()), contentAlignment = Alignment.Center
-        ) {
-            Text(text = "I am a box")
+fun myCheckBoxChecked(checkInfo: CheckInfo) {
+    Row(verticalAlignment = Alignment.CenterVertically) {
+        Checkbox(
+            checked = checkInfo.selected,
+            onCheckedChange = { checkInfo.onCheckedChange(!checkInfo.selected) })
+        Text(text = checkInfo.title)
+    }
+}
+
+@Composable
+fun myToDoList() {
+    var checkedState by rememberSaveable {
+        mutableStateOf(false)
+    }
+    Column(Modifier.fillMaxSize(), verticalArrangement = Arrangement.Top) {
+        Row(Modifier.padding(8.dp), verticalAlignment = Alignment.CenterVertically) {
+            Checkbox(checked = checkedState, onCheckedChange = { checkedState = !checkedState })
+            Text(text = "CheckBox #1")
         }
     }
-}
-
-@Composable
-fun myColumn() {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .verticalScroll(rememberScrollState())
-    ) {
-        Text(
-            text = "I am the column 1",
-            Modifier
-                .background(Color.Red)
-                .fillMaxWidth()
-                .height(100.dp)
-        )
-        Text(
-            text = "I am the column 2",
-            Modifier
-                .background(Color.Blue)
-                .fillMaxWidth()
-                .height(100.dp)
-        )
-        Text(
-            text = "I am the column 3",
-            Modifier
-                .background(Color.Green)
-                .fillMaxWidth()
-                .height(100.dp)
-        )
-        Text(
-            text = "I am the column 4",
-            Modifier
-                .background(Color.Gray)
-                .fillMaxWidth()
-                .height(100.dp)
-        )
-        Text(
-            text = "I am the column 4",
-            Modifier
-                .background(Color.Gray)
-                .fillMaxWidth()
-                .height(100.dp)
-        )
-        Text(
-            text = "I am the column 1",
-            Modifier
-                .background(Color.Red)
-                .fillMaxWidth()
-                .height(100.dp)
-        )
-        Text(
-            text = "I am the column 2",
-            Modifier
-                .background(Color.Blue)
-                .fillMaxWidth()
-                .height(100.dp)
-        )
-        Text(
-            text = "I am the column 3",
-            Modifier
-                .background(Color.Green)
-                .fillMaxWidth()
-                .height(100.dp)
-        )
-        Text(
-            text = "I am the column 4",
-            Modifier
-                .background(Color.Gray)
-                .fillMaxWidth()
-                .height(100.dp)
-        )
-    }
-}
-
-@Composable
-fun myRow() {
-
-    Row(Modifier.horizontalScroll(rememberScrollState())) {
-        Text(
-            text = "I am the column 1",
-            Modifier
-                .background(Color.Red)
-                .height(50.dp)
-        )
-        Text(
-            text = "I am the column 2",
-            Modifier
-                .background(Color.Blue)
-                .height(50.dp)
-        )
-        Text(
-            text = "I am the column 3",
-            Modifier
-                .background(Color.Green)
-                .height(50.dp)
-        )
-        Text(
-            text = "I am the column 4",
-            Modifier
-                .background(Color.Gray)
-                .height(50.dp)
-        )
-        Text(
-            text = "I am the column 1",
-            Modifier
-                .background(Color.Red)
-                .height(50.dp)
-        )
-        Text(
-            text = "I am the column 2",
-            Modifier
-                .background(Color.Blue)
-                .height(50.dp)
-        )
-        Text(
-            text = "I am the column 3",
-            Modifier
-                .background(Color.Green)
-                .height(50.dp)
-        )
-        Text(
-            text = "I am the column 4",
-            Modifier
-                .background(Color.Gray)
-                .height(50.dp)
-        )
-    }
-}
-
-@Composable
-fun myComplexLayout() {
-    Column() {
-        Box(
-            Modifier
-                .background(Color.Green)
-                .fillMaxWidth()
-                .weight(1f)
-        ) {
-            Text(text = "I am a box")
-        }
-        Row(
-            Modifier
-                .fillMaxWidth()
-                .weight(1f),
-            horizontalArrangement = Arrangement.SpaceBetween
-        ) {
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .background(Color.Cyan)
-                    .weight(1f)
-                    .fillMaxHeight()
-            ) {
-                Text(text = "I am a CYAN box")
-            }
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .background(Color.Blue)
-                    .weight(1f)
-                    .fillMaxHeight()
-            ) {
-                Text(text = "I am a BLUE box")
-            }
-        }
-        Box(
-            Modifier
-                .background(Color.Yellow)
-                .weight(1f)
-                .fillMaxHeight()
-                .fillMaxWidth()
-        ) {
-            Text(text = "I am a yellow box")
-        }
-    }
-}
-
-@Composable
-fun myStatesExamples() {
-    var counter by rememberSaveable { mutableStateOf(0) }
-    Column(modifier = Modifier.fillMaxSize()) {
-        Button(onClick = { counter += 1 }) {
-            Text(text = "Press Here")
-        } //Ends Button
-        Text(text = "I have been pressed ${counter} times")
-    }//Ends Column
-}
-
-@Composable
-fun myText() {
-    Column(modifier = Modifier.fillMaxSize()) {
-        Text(text = "I am a Text!!")
-        Text(text = "I am a Text!!", color = Color.Blue)
-        Text(text = "I am a Text!!", color = Color.Blue, fontWeight = FontWeight.ExtraBold)
-        Text(text = "I am a Text!!", color = Color.Blue, fontWeight = FontWeight.Light)
-        Text(
-            text = "I am a Text!!",
-            color = Color.Blue,
-            fontWeight = FontWeight.Light,
-            style = TextStyle(fontFamily = FontFamily.SansSerif)
-        )
-        Text(text = "I am a text", style = TextStyle(textDecoration = TextDecoration.Underline))
-        Text(text = "I am a text", style = TextStyle(textDecoration = TextDecoration.LineThrough))
-        //Begins Combined Text
-        Text(
-            text = "I am a combined text", style = TextStyle(
-                textDecoration = TextDecoration.combine(
-                    listOf(
-                        TextDecoration.Underline,
-                        TextDecoration.LineThrough
-                    )
-                )
-            )
-        ) //Ends Combined Text
-        Text(text = "I am a Text!!", fontSize = 40.sp)
-
-    }
-
-}
-
-@Composable
-fun myTextField() {
-    var myCustomText by remember {
-        mutableStateOf("")
-    }
-
-    Column(Modifier.fillMaxSize()) {
-        TextField(value = myCustomText, onValueChange = {
-            myCustomText = if (it.contains("[0-9]".toRegex())) {
-                it.replace("[0-9]".toRegex(), "")
-            } else {
-                it
-            }
-        })
-        Spacer(Modifier.height(30.dp))
-        OutlinedTextField(
-            value = myCustomText,
-            onValueChange = { myCustomText = it },
-            label = { Text(text = "Text") },
-            colors = TextFieldDefaults.outlinedTextFieldColors(
-                focusedBorderColor = Color.Red,
-                unfocusedBorderColor = Color.Magenta
-            )
-        )
-    } //Ends Column
 }
 
 
@@ -379,13 +99,6 @@ fun myTextField() {
 @Composable
 fun DefaultMyBox() {
     GummyTheme {
-        //myBox()
-        //myColumn()
-        //myRow()
-        //myComplexLayout()
-        //myStatesExamples()
-        //myText()
-        //myTextField()
-        myImages()
+        myToDoList()
     }
 }
