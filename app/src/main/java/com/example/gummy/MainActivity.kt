@@ -40,20 +40,41 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    Column() {
+                    /*Column() {
                         val options = getOptions(listOf(
-                            "Install Android Studio",
-                            "Learn Kotlin",
-                            "Create a project",
-                            "Create a To-Do List"))
+                            "Michelle",
+                            "Natalia",
+                            "Allison",
+                            "Ashley",
+                            "Jessica"))
                         options.forEach{
                             myCheckBoxChecked(it)
                         }
-                    }
+                    }*/
                     //myToDoList()
+                    myRadioButton()
                 }
             }
         }
+    }
+}
+
+@Composable
+fun myRadioButton(){
+    var status by rememberSaveable {
+        mutableStateOf(false)
+    }
+    Row(verticalAlignment = Alignment.CenterVertically) {
+        RadioButton(selected = status,
+            onClick = { status = !status },
+            enabled = true,
+        colors = RadioButtonDefaults.colors(
+            selectedColor = Color.Cyan,
+            unselectedColor = Color.LightGray,
+            disabledColor = Color.Red
+        )
+            )
+        Text(text = "Radio Button #1")
     }
 }
 
@@ -99,6 +120,7 @@ fun myToDoList() {
 @Composable
 fun DefaultMyBox() {
     GummyTheme {
-        myToDoList()
+        //myToDoList()
+        myRadioButton()
     }
 }
