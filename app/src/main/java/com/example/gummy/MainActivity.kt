@@ -44,7 +44,9 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    myProgressiveBarButton()
+                    Column() {
+                        mySwitch()
+                    }
                 }
             }
         }
@@ -52,48 +54,22 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun myProgressiveBar(){
-    Column (
-        Modifier
-            .fillMaxSize()
-            .padding(24.dp),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
+fun mySwitch() {
+    var check by rememberSaveable {
+        mutableStateOf(true)
+    }
+
+    Switch(
+        checked = check,
+        onCheckedChange = { check = !check },
+        enabled = true,
+        colors = SwitchDefaults.colors(
+            uncheckedTrackColor = Color.Green,
+            checkedTrackColor = Color.Red,
+            checkedThumbColor = Color.Blue,
+            uncheckedThumbColor = Color.Yellow
+        )
     )
-
-    {
-        CircularProgressIndicator(strokeWidth = 10.dp, color = Color.Yellow)
-        Spacer(Modifier.height(30.dp))
-        LinearProgressIndicator(color = Color.Red, backgroundColor = Color.DarkGray)
-    }
-}
-
-@Composable
-fun myProgressiveBarButton(){
-    var progress by rememberSaveable {
-        mutableStateOf(0.5f)
-    }
-    Column(modifier = Modifier.padding(24.dp),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-
-        CircularProgressIndicator(progress)
-        Spacer(Modifier.height(20.dp))
-
-
-        Row() {
-            Button(onClick = { progress +=  0.1f }) {
-                Text(text = "Increment")
-            }
-
-            Spacer(Modifier.width(30.dp))
-
-            Button(onClick = { progress -=  0.1f }) {
-                Text(text = "Decrement")
-            }
-        }
-    }
 }
 
 
@@ -101,6 +77,6 @@ fun myProgressiveBarButton(){
 @Composable
 fun DefaultMyBox() {
     GummyTheme {
-        myProgressiveBarButton()
+        mySwitch()
     }
 }
