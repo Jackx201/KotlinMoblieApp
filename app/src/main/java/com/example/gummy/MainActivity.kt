@@ -44,7 +44,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    myIcons()
+                    myProgressiveBarButton()
                 }
             }
         }
@@ -52,11 +52,47 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun myIcons(){
-    Column() {
-        Icon(imageVector = Icons.Sharp.Star, contentDescription = "Star")
-        Icon(imageVector = Icons.Sharp.Menu, contentDescription = "Menu")
-        Icon(imageVector = Icons.Sharp.ArrowBack, contentDescription = "Arrow")
+fun myProgressiveBar(){
+    Column (
+        Modifier
+            .fillMaxSize()
+            .padding(24.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
+    )
+
+    {
+        CircularProgressIndicator(strokeWidth = 10.dp, color = Color.Yellow)
+        Spacer(Modifier.height(30.dp))
+        LinearProgressIndicator(color = Color.Red, backgroundColor = Color.DarkGray)
+    }
+}
+
+@Composable
+fun myProgressiveBarButton(){
+    var progress by rememberSaveable {
+        mutableStateOf(0.5f)
+    }
+    Column(modifier = Modifier.padding(24.dp),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+
+        CircularProgressIndicator(progress)
+        Spacer(Modifier.height(20.dp))
+
+
+        Row() {
+            Button(onClick = { progress +=  0.1f }) {
+                Text(text = "Increment")
+            }
+
+            Spacer(Modifier.width(30.dp))
+
+            Button(onClick = { progress -=  0.1f }) {
+                Text(text = "Decrement")
+            }
+        }
     }
 }
 
@@ -65,6 +101,6 @@ fun myIcons(){
 @Composable
 fun DefaultMyBox() {
     GummyTheme {
-        myIcons()
+        myProgressiveBarButton()
     }
 }
