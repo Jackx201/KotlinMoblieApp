@@ -8,6 +8,9 @@ import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Email
+import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -41,11 +44,12 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    Column() {
+                    Column {
                         var selected by rememberSaveable {
                             mutableStateOf("")
                         }
-                        myCard()
+                        myBadgeBox()
+
                     }
                 }
             }
@@ -54,25 +58,24 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun myCard() {
-    Card(
-        modifier = Modifier
-            .padding(24.dp)
-            .fillMaxWidth(),
-        shape = MaterialTheme.shapes.small,
-        border = BorderStroke(1.dp, color = Color.Cyan),
-        backgroundColor = Color.DarkGray,
-        contentColor = Color.White,
-        elevation = 25.dp
+fun myBadgeBox(){
+    BadgedBox(badge = { Badge{ Text(text = "7")}},
+    modifier = Modifier.padding(10.dp)) {
+        Icon(imageVector = Icons.Filled.Favorite,
+            contentDescription = "Notifications" )
+    }
 
-    ) {
+    BadgedBox(badge = { Badge(backgroundColor = Color.Green, contentColor = Color.Magenta){ Text(text = "7")}},
+        modifier = Modifier.padding(10.dp)) {
+        Icon(imageVector = Icons.Filled.Email,
+            contentDescription = "Messages" )
+    }
 
-        Column() {
-            Text(text = "Michelle")
-            Text(text = "Natalia")
-            Text(text = "Luna")
+    BadgedBox(badge = { Badge{ Text(text = "!")}},
+        modifier = Modifier.padding(10.dp)) {
+        Button(onClick = { /*TODO*/ }) {
+            Text(text = "New Post")
         }
-
     }
 }
 
@@ -82,7 +85,7 @@ fun myCard() {
 fun DefaultMyBox() {
     GummyTheme {
         Column {
-            myCard()
+            myBadgeBox()
         }
     }
 }
