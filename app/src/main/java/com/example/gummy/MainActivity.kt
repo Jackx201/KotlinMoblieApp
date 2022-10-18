@@ -29,6 +29,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.gummy.ui.theme.GummyTheme
+import com.example.gummy.ui.theme.Shapes
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,7 +45,7 @@ class MainActivity : ComponentActivity() {
                         var selected by rememberSaveable {
                             mutableStateOf("")
                         }
-                        myRadioButtonList(selected){selected=it}
+                        myCard()
                     }
                 }
             }
@@ -53,35 +54,35 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun myRadioButtonList(selected: String, onItemSelected:(String)->Unit){
+fun myCard() {
+    Card(
+        modifier = Modifier
+            .padding(24.dp)
+            .fillMaxWidth(),
+        shape = MaterialTheme.shapes.small,
+        border = BorderStroke(1.dp, color = Color.Cyan),
+        backgroundColor = Color.DarkGray,
+        contentColor = Color.White,
+        elevation = 25.dp
 
-    Row(verticalAlignment = Alignment.CenterVertically) {
-        RadioButton(selected = selected=="Michelle",
-            onClick = { onItemSelected("Michelle") })
-        Text(text = "Michelle")
-    }
+    ) {
 
-    Row(verticalAlignment = Alignment.CenterVertically) {
-        RadioButton(selected = selected=="Natalia",
-            onClick = { onItemSelected("Natalia") })
-        Text(text = "Natalia")
-    }
+        Column() {
+            Text(text = "Michelle")
+            Text(text = "Natalia")
+            Text(text = "Luna")
+        }
 
-    Row(verticalAlignment = Alignment.CenterVertically) {
-        RadioButton(selected = selected=="Luna",
-            onClick = { onItemSelected("Luna") })
-        Text(text = "Luna")
     }
 }
-
 
 
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun DefaultMyBox() {
     GummyTheme {
-        Column() {
-            //myRadioButtonList()
+        Column {
+            myCard()
         }
     }
 }
