@@ -40,19 +40,12 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    /*Column() {
-                        val options = getOptions(listOf(
-                            "Michelle",
-                            "Natalia",
-                            "Allison",
-                            "Ashley",
-                            "Jessica"))
-                        options.forEach{
-                            myCheckBoxChecked(it)
+                    Column() {
+                        var selected by rememberSaveable {
+                            mutableStateOf("")
                         }
-                    }*/
-                    //myToDoList()
-                    myRadioButton()
+                        myRadioButtonList(selected){selected=it}
+                    }
                 }
             }
         }
@@ -60,67 +53,35 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun myRadioButton(){
-    var status by rememberSaveable {
-        mutableStateOf(false)
-    }
+fun myRadioButtonList(selected: String, onItemSelected:(String)->Unit){
+
     Row(verticalAlignment = Alignment.CenterVertically) {
-        RadioButton(selected = status,
-            onClick = { status = !status },
-            enabled = true,
-        colors = RadioButtonDefaults.colors(
-            selectedColor = Color.Cyan,
-            unselectedColor = Color.LightGray,
-            disabledColor = Color.Red
-        )
-            )
-        Text(text = "Radio Button #1")
+        RadioButton(selected = selected=="Michelle",
+            onClick = { onItemSelected("Michelle") })
+        Text(text = "Michelle")
     }
-}
 
-@Composable
-fun getOptions(title: List<String>): List<CheckInfo> {
-    return title.map {
-        var status by rememberSaveable {
-            mutableStateOf(false)
-        }
-        CheckInfo(
-            title = it,
-            selected = status,
-            onCheckedChange = { myNewStatus -> status = myNewStatus }
-        )
-    }
-}
-
-@Composable
-fun myCheckBoxChecked(checkInfo: CheckInfo) {
     Row(verticalAlignment = Alignment.CenterVertically) {
-        Checkbox(
-            checked = checkInfo.selected,
-            onCheckedChange = { checkInfo.onCheckedChange(!checkInfo.selected) })
-        Text(text = checkInfo.title)
+        RadioButton(selected = selected=="Natalia",
+            onClick = { onItemSelected("Natalia") })
+        Text(text = "Natalia")
+    }
+
+    Row(verticalAlignment = Alignment.CenterVertically) {
+        RadioButton(selected = selected=="Luna",
+            onClick = { onItemSelected("Luna") })
+        Text(text = "Luna")
     }
 }
 
-@Composable
-fun myToDoList() {
-    var checkedState by rememberSaveable {
-        mutableStateOf(false)
-    }
-    Column(Modifier.fillMaxSize(), verticalArrangement = Arrangement.Top) {
-        Row(Modifier.padding(8.dp), verticalAlignment = Alignment.CenterVertically) {
-            Checkbox(checked = checkedState, onCheckedChange = { checkedState = !checkedState })
-            Text(text = "CheckBox #1")
-        }
-    }
-}
 
 
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun DefaultMyBox() {
     GummyTheme {
-        //myToDoList()
-        myRadioButton()
+        Column() {
+            //myRadioButtonList()
+        }
     }
 }
