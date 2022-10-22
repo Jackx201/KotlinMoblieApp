@@ -58,21 +58,54 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun myBadgeBox(){
-    BadgedBox(badge = { Badge{ Text(text = "7")}},
-    modifier = Modifier.padding(10.dp)) {
-        Icon(imageVector = Icons.Filled.Favorite,
-            contentDescription = "Notifications" )
+fun myBadgeBox() {
+    BadgedBox(
+        badge = { Badge { Text(text = "7") } },
+        modifier = Modifier.padding(10.dp)
+    ) {
+        Icon(
+            imageVector = Icons.Filled.Favorite,
+            contentDescription = "Notifications"
+        )
     }
 
-    BadgedBox(badge = { Badge(backgroundColor = Color.Green, contentColor = Color.Magenta){ Text(text = "7")}},
-        modifier = Modifier.padding(10.dp)) {
-        Icon(imageVector = Icons.Filled.Email,
-            contentDescription = "Messages" )
+    Divider(
+        Modifier
+            .fillMaxWidth()
+            .padding(10.dp),
+        color = Color.Cyan,
+        thickness = 10.dp,
+        startIndent = 5.dp
+    )
+
+    BadgedBox(
+        badge = {
+            Badge(
+                backgroundColor = Color.Green,
+                contentColor = Color.Magenta
+            ) { Text(text = "7") }
+        },
+        modifier = Modifier.padding(10.dp)
+    ) {
+        Icon(
+            imageVector = Icons.Filled.Email,
+            contentDescription = "Messages"
+        )
     }
 
-    BadgedBox(badge = { Badge{ Text(text = "!")}},
-        modifier = Modifier.padding(10.dp)) {
+    Divider(
+        Modifier
+            .fillMaxWidth()
+            .padding(10.dp),
+        color = Color.Green,
+        thickness = 10.dp,
+        startIndent = 5.dp
+    )
+
+    BadgedBox(
+        badge = { Badge { Text(text = "!") } },
+        modifier = Modifier.padding(10.dp)
+    ) {
         Button(onClick = { /*TODO*/ }) {
             Text(text = "New Post")
         }
