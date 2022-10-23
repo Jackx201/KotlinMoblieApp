@@ -45,11 +45,7 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colors.background
                 ) {
                     Column {
-                        var selected by rememberSaveable {
-                            mutableStateOf("")
-                        }
-                        myBadgeBox()
-
+                        myMenu()
                     }
                 }
             }
@@ -58,56 +54,39 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun myBadgeBox() {
-    BadgedBox(
-        badge = { Badge { Text(text = "7") } },
-        modifier = Modifier.padding(10.dp)
-    ) {
-        Icon(
-            imageVector = Icons.Filled.Favorite,
-            contentDescription = "Notifications"
-        )
+fun myMenu() {
+    var selectedText by remember {
+        mutableStateOf("")
     }
 
-    Divider(
-        Modifier
-            .fillMaxWidth()
-            .padding(10.dp),
-        color = Color.Cyan,
-        thickness = 10.dp,
-        startIndent = 5.dp
-    )
-
-    BadgedBox(
-        badge = {
-            Badge(
-                backgroundColor = Color.Green,
-                contentColor = Color.Magenta
-            ) { Text(text = "7") }
-        },
-        modifier = Modifier.padding(10.dp)
-    ) {
-        Icon(
-            imageVector = Icons.Filled.Email,
-            contentDescription = "Messages"
-        )
+    var expanded by remember {
+        mutableStateOf(false)
     }
 
-    Divider(
-        Modifier
-            .fillMaxWidth()
-            .padding(10.dp),
-        color = Color.Green,
-        thickness = 10.dp,
-        startIndent = 5.dp
-    )
+    val dessert = listOf("Ice Cream", "Coffee", "Oreo cookies", "Pie")
 
-    BadgedBox(
-        badge = { Badge { Text(text = "!") } },
-        modifier = Modifier.padding(10.dp)
+    OutlinedTextField(
+        value = selectedText,
+        onValueChange = { selectedText = it },
+        enabled = false,
+        readOnly = true,
+        modifier = Modifier
+            .fillMaxWidth()
+            .clickable { expanded = true })
+
+    DropdownMenu(
+        expanded = expanded,
+        onDismissRequest = { expanded = false },
+        Modifier.fillMaxWidth()
     ) {
-        Button(onClick = { /*TODO*/ }) {
-            Text(text = "New Post")
+        dessert.forEach { dessert->
+            DropdownMenuItem(
+                onClick = {
+                    expanded = false
+                    selectedText = dessert
+                }) {
+                Text(text = dessert)
+            }
         }
     }
 }
@@ -118,7 +97,7 @@ fun myBadgeBox() {
 fun DefaultMyBox() {
     GummyTheme {
         Column {
-            myBadgeBox()
+            myMenu()
         }
     }
 }
