@@ -1,6 +1,7 @@
 package com.example.gummy
 
 import android.os.Bundle
+import android.util.Log
 import android.widget.Space
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -45,47 +46,20 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colors.background
                 ) {
                     Column {
-                        myMenu()
+                        Box(
+                            Modifier.fillMaxWidth(),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            var show by remember {
+                                mutableStateOf(false)
+                            }
+                            Button(onClick = { show = true }) {
+                                Text(text = "Show Dialog")
+                            }
+                            MySimpleCustomDialog(show = show, onDismiss = { show = false })
+                        }
                     }
                 }
-            }
-        }
-    }
-}
-
-@Composable
-fun myMenu() {
-    var selectedText by remember {
-        mutableStateOf("")
-    }
-
-    var expanded by remember {
-        mutableStateOf(false)
-    }
-
-    val dessert = listOf("Ice Cream", "Coffee", "Oreo cookies", "Pie")
-
-    OutlinedTextField(
-        value = selectedText,
-        onValueChange = { selectedText = it },
-        enabled = false,
-        readOnly = true,
-        modifier = Modifier
-            .fillMaxWidth()
-            .clickable { expanded = true })
-
-    DropdownMenu(
-        expanded = expanded,
-        onDismissRequest = { expanded = false },
-        Modifier.fillMaxWidth()
-    ) {
-        dessert.forEach { dessert->
-            DropdownMenuItem(
-                onClick = {
-                    expanded = false
-                    selectedText = dessert
-                }) {
-                Text(text = dessert)
             }
         }
     }
@@ -97,7 +71,18 @@ fun myMenu() {
 fun DefaultMyBox() {
     GummyTheme {
         Column {
-            myMenu()
+            Box(
+                Modifier.fillMaxWidth(),
+                contentAlignment = Alignment.Center
+            ) {
+                var show by remember {
+                    mutableStateOf(false)
+                }
+                Button(onClick = { show = true }) {
+                    Text(text = "Show Dialog")
+                }
+                MyDialog(show = show, onDismiss = { show = false }, onConfirm = { Log.i("Message", "It works") })
+            }
         }
     }
 }
