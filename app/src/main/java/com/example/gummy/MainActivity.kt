@@ -2,6 +2,7 @@ package com.example.gummy
 
 import android.os.Bundle
 import android.util.Log
+import android.widget.Button
 import android.widget.Space
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -46,22 +47,41 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colors.background
                 ) {
                     Column {
-                        Box(
-                            Modifier.fillMaxWidth(),
-                            contentAlignment = Alignment.Center
-                        ) {
-                            var show by remember {
-                                mutableStateOf(false)
-                            }
-                            Button(onClick = { show = true }) {
-                                Text(text = "Show Dialog")
-                            }
-                            MySimpleCustomDialog(show = show, onDismiss = { show = false })
+                        var show by remember {
+                            mutableStateOf(false)
                         }
+
+                        Button(onClick = { show = true } ){
+                            Text(text = "Alert Dialog")
+                        }
+                        MyConfirmationDialog(show, onDismiss = {show = false})
                     }
                 }
             }
         }
+    }
+}
+
+
+@Composable
+fun myRadioButtonList(selected: String, onItemSelected:(String)->Unit){
+
+    Row(verticalAlignment = Alignment.CenterVertically) {
+        RadioButton(selected = selected=="Michelle",
+            onClick = { onItemSelected("Michelle") })
+        Text(text = "Michelle")
+    }
+
+    Row(verticalAlignment = Alignment.CenterVertically) {
+        RadioButton(selected = selected=="Natalia",
+            onClick = { onItemSelected("Natalia") })
+        Text(text = "Natalia")
+    }
+
+    Row(verticalAlignment = Alignment.CenterVertically) {
+        RadioButton(selected = selected=="Luna",
+            onClick = { onItemSelected("Luna") })
+        Text(text = "Luna")
     }
 }
 
